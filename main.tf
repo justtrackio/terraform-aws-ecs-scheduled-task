@@ -10,28 +10,31 @@ locals {
 }
 
 module "task_label" {
-  source     = "cloudposse/label/null"
-  version    = "0.25.0"
-  enabled    = local.create_task_role
-  attributes = ["task"]
+  source      = "cloudposse/label/null"
+  version     = "0.25.0"
+  enabled     = local.create_task_role
+  attributes  = ["task"]
+  label_order = var.label_orders.iam
 
   context = module.this.context
 }
 
 module "exec_label" {
-  source     = "cloudposse/label/null"
-  version    = "0.25.0"
-  enabled    = local.create_exec_role
-  attributes = ["exec"]
+  source      = "cloudposse/label/null"
+  version     = "0.25.0"
+  enabled     = local.create_exec_role
+  attributes  = ["exec"]
+  label_order = var.label_orders.iam
 
   context = module.this.context
 }
 
-module "event_label" {
-  source     = "cloudposse/label/null"
-  version    = "0.25.0"
-  enabled    = local.create_exec_role
-  attributes = ["event"]
+module "cloudwatch_label" {
+  source      = "cloudposse/label/null"
+  version     = "0.25.0"
+  enabled     = local.create_exec_role
+  attributes  = ["event"]
+  label_order = var.label_orders.cloudwatch
 
   context = module.this.context
 }
@@ -257,10 +260,10 @@ data "aws_iam_policy_document" "event" {
 resource "aws_iam_role" "cloudwatch_event" {
   count = local.create_event_role ? 1 : 0
 
-  name                 = module.event_label.id
+  name                 = module.cloudwatch_label.id
   assume_role_policy   = try(data.aws_iam_policy_document.event[0].json, "")
   permissions_boundary = var.permissions_boundary == "" ? null : var.permissions_boundary
-  tags                 = var.role_tags_enabled ? module.event_label.tags : null
+  tags                 = var.role_tags_enabled ? module.cloudwatch_label.tags : null
 }
 
 data "aws_iam_policy_document" "cloudwatch_event" {
@@ -278,7 +281,7 @@ data "aws_iam_policy_document" "cloudwatch_event" {
 
 resource "aws_iam_role_policy" "cloudwatch_event" {
   count  = local.create_event_role ? 1 : 0
-  name   = module.event_label.id
+  name   = module.cloudwatch_label.id
   policy = try(data.aws_iam_policy_document.cloudwatch_event[0].json, "")
   role   = try(aws_iam_role.cloudwatch_event[0].id, "")
 }

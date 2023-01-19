@@ -231,3 +231,12 @@ variable "task_count" {
   description = "The number of tasks to create based on the TaskDefinition."
   default     = null
 }
+
+variable "label_orders" {
+  type = object({
+    cloudwatch = optional(list(string)),
+    iam        = optional(list(string))
+  })
+  default     = {}
+  description = "Overrides the `labels_order` for the different labels to modify ID elements appear in the `id`"
+}
