@@ -60,7 +60,9 @@ resource "aws_ecs_task_definition" "default" {
   }
 
   dynamic "ephemeral_storage" {
-    for_each = var.ephemeral_storage_size == 0 ? [] : [var.ephemeral_storage_size]
+    for_each = var.ephemeral_storage_size == 0 ? [] : [
+      var.ephemeral_storage_size
+    ]
     content {
       size_in_gib = var.ephemeral_storage_size
     }
@@ -308,7 +310,14 @@ resource "aws_cloudwatch_event_target" "default" {
   role_arn  = length(local.cloudwatch_event_role_arn) > 0 ? local.cloudwatch_event_role_arn : try(aws_iam_role.cloudwatch_event[0].arn, "")
 
   ecs_target {
+    dynamic "network_configuration" {
+      for_each = var.network_mode == "awsvpc" ? ["true"] : []
+      content {
+        subnets = var.subnet_ids
+      }
+    }
     task_count          = var.task_count
+    launch_type         = var.launch_type
     task_definition_arn = try(aws_ecs_task_definition.default[0].arn, "")
   }
 }
