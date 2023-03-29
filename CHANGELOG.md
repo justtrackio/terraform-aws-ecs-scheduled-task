@@ -1,3 +1,10 @@
+## [1.3.0](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/compare/v1.2.0...v1.3.0) (2023-03-29)
+
+
+### Features
+
+* allow users to set security groups on scheduled tasks; ([#17](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/issues/17)) ([b3cc8b2](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/commit/b3cc8b285fc77e4206c1e50c4aa65c1cf31e35c3))
+
 ## [1.2.0](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/compare/v1.1.0...v1.2.0) (2023-03-28)
 
 
