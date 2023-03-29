@@ -44,6 +44,12 @@ variable "subnet_ids" {
   default     = []
 }
 
+variable "security_groups" {
+  type        = list(string)
+  description = "The security groups associated with the task or service. If you do not specify a security group, the default security group for the VPC is used."
+  default     = []
+}
+
 variable "task_cpu" {
   type        = number
   description = "The number of CPU units used by the task. If using `FARGATE` launch type `task_cpu` must match supported memory values (https://docs.aws.amazon.com/AmazonECS/latest/developerguide/task_definition_parameters.html#task_size)"
@@ -107,7 +113,9 @@ variable "cloudwatch_event_role_arn" {
 variable "cloudwatch_event_policy_arns" {
   type        = list(string)
   description = "A list of IAM Policy ARNs to attach to the generated cloudwatch event role."
-  default     = ["arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceEventsRole"]
+  default = [
+    "arn:aws:iam::aws:policy/service-role/AmazonEC2ContainerServiceEventsRole"
+  ]
 }
 
 variable "runtime_platform" {

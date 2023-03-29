@@ -313,7 +313,8 @@ resource "aws_cloudwatch_event_target" "default" {
     dynamic "network_configuration" {
       for_each = var.network_mode == "awsvpc" ? ["true"] : []
       content {
-        subnets = var.subnet_ids
+        subnets         = var.subnet_ids
+        security_groups = var.security_groups
       }
     }
     task_count          = var.task_count
