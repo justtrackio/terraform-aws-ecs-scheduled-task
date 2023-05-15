@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/compare/v1.3.0...v1.3.1) (2023-05-15)
+
+
+### Bug Fixes
+
+* adjust_versions_variables_outputs ([#21](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/issues/21)) ([c06979b](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/commit/c06979bb2c6de0a9ad74475dee4738b2840b3688))
+
 ## [1.3.0](https://github.com/justtrackio/terraform-aws-ecs-scheduled-task/compare/v1.2.0...v1.3.0) (2023-03-29)
 
 
