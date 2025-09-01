@@ -1,6 +1,6 @@
 module "container_definition" {
   source           = "cloudposse/ecs-container-definition/aws"
-  version          = "0.58.1"
+  version          = "0.61.2"
   container_name   = "hello-world"
   container_image  = "hello-world:latest"
   container_memory = 32
